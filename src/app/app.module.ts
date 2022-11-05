@@ -19,6 +19,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
+import { AuthGuard } from './shared/guard/auth.guard';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { AuthService } from "./shared/services/auth.service";
     AngularFireStorageModule,
     AngularFireDatabaseModule,
   ],
-  providers: [AuthService],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

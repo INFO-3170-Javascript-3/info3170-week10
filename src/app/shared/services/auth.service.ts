@@ -61,7 +61,7 @@ export class AuthService {
         window.alert(error.message);
       });
   }
-  // Send email verfificaiton when new user sign up
+  // Send email verification when new user sign up
   SendVerificationMail() {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
