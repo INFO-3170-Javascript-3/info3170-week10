@@ -1,1 +1,54 @@
+<mat-toolbar>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor] ="menu"
+    aria-label="Example icon button with a menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu
+    #menu="matMenu">
+    <a mat-menu-item routerLink="dashboard">
+      <mat-icon>home</mat-icon>
+      <span>Home</span>
+    </a>
+    <a mat-menu-item routerLink="products">
+      <mat-icon>forest</mat-icon>
+      <span>Products</span>
+    </a>
+    <a mat-menu-item routerLink="cart">
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Cart</span>
+    </a>
+    <a mat-menu-item (click)="authService.SignOut">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </a>
+  </mat-menu>
+  <span class="spacer"></span>
+  <img class="brand-logo" src="assets/brand-logo.svg" alt="brand Logo">
+  <span>Bonsai Store App</span>
+  <span class="spacer"></span>
+  <button
+    class="button"
+    mat-icon-button
+    class="icon"
+    aria-label="Shopping Cart Icon"
+    routerLink="cart"
+  >
+    <mat-icon matBadge="{{ itemCount }}" matBadgeColor="warn"
+      >shopping_cart
+    </mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    title="Logout"
+    class="icon"
+    aria-label="Logout Button"
+    routerLink="cart"
+    (click)="authService.SignOut()"
+  >
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

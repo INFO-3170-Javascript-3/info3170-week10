@@ -7,6 +7,8 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 // route guard
 import { AuthGuard } from './shared/guard/auth.guard';
+import { ProductsListComponent } from './components/products/products-list/products-list.component';
+import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 const routes: Routes = [
   { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
   { path: 'sign-in', component: SignInComponent },
@@ -14,6 +16,16 @@ const routes: Routes = [
   { 
     path: 'dashboard', 
     component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'products', 
+    component: ProductsListComponent,
+    canActivate: [AuthGuard]
+  },
+  { 
+    path: 'products/:productId', 
+    component: ProductDetailsComponent,
     canActivate: [AuthGuard]
   },
   { path: 'forgot-password', component: ForgotPasswordComponent },

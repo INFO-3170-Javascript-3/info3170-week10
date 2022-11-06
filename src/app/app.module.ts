@@ -20,6 +20,18 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
 // Auth service
 import { AuthService } from "./shared/services/auth.service";
 import { AuthGuard } from './shared/guard/auth.guard';
+import { ProductsListComponent } from './components/products/products-list/products-list.component';
+import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
+import { ProductItemComponent } from './components/products/product-item/product-item.component';
+
+// Material Library
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -28,7 +40,10 @@ import { AuthGuard } from './shared/guard/auth.guard';
     SignInComponent,
     SignUpComponent,
     ForgotPasswordComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+    ProductsListComponent,
+    ProductDetailsComponent,
+    ProductItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +53,13 @@ import { AuthGuard } from './shared/guard/auth.guard';
     AngularFirestoreModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    BrowserAnimationsModule,
+    MatBadgeModule,
+    MatSnackBarModule,
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

@@ -7,7 +7,13 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(public authService: AuthService) {
-  }
+  
+  public itemCount:Number = 0;
+  
+  constructor(
+    public authService: AuthService
+  ) { }
+  
   ngOnInit(): void {}
+
 }
