@@ -23,6 +23,7 @@ import { AuthGuard } from './shared/guard/auth.guard';
 import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
 import { ProductItemComponent } from './components/products/product-item/product-item.component';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart/shopping-cart.component';
 
 // Material Library
 import { MatCardModule } from '@angular/material/card';
@@ -44,6 +45,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ProductsListComponent,
     ProductDetailsComponent,
     ProductItemComponent,
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,

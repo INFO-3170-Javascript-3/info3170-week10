@@ -7,28 +7,48 @@
   </button>
   <mat-menu
     #menu="matMenu">
-    <a mat-menu-item routerLink="dashboard">
-      <mat-icon>home</mat-icon>
-      <span>Home</span>
-    </a>
-    <a mat-menu-item routerLink="products">
-      <mat-icon>forest</mat-icon>
-      <span>Products</span>
-    </a>
-    <a mat-menu-item routerLink="cart">
-      <mat-icon>shopping_cart</mat-icon>
-      <span>Cart</span>
-    </a>
-    <a mat-menu-item (click)="authService.SignOut">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </a>
+    <!-- Private routes -->
+    <div *ngIf="authService.isLoggedIn">
+      <a mat-menu-item routerLink="dashboard">
+        <mat-icon>home</mat-icon>
+        <span>Home</span>
+      </a>
+      <a mat-menu-item routerLink="products">
+        <mat-icon>forest</mat-icon>
+        <span>Products</span>
+      </a>
+      <a *ngIf="authService.isLoggedIn" mat-menu-item routerLink="cart">
+        <mat-icon>shopping_cart</mat-icon>
+        <span>Cart</span>
+      </a>
+      <a *ngIf="authService.isLoggedIn" mat-menu-item (click)="authService.SignOut">
+        <mat-icon>logout</mat-icon>
+        <span>Logout</span>
+      </a>
+    </div>
+    <!-- Non authenticated routes -->
+    <div *ngIf="!authService.isLoggedIn">
+      <a mat-menu-item routerLink="sign-in">
+        <mat-icon>login</mat-icon>
+        <span>Login</span>
+      </a>
+      <a mat-menu-item routerLink="register-user">
+        <mat-icon>face</mat-icon>
+        <span>Sign-up</span>
+      </a>
+      <a mat-menu-item routerLink="forgot-password">
+        <mat-icon>password</mat-icon>
+        <span>Forgot Password</span>
+      </a>
+    </div>
+
   </mat-menu>
   <span class="spacer"></span>
   <img class="brand-logo" src="assets/brand-logo.svg" alt="brand Logo">
   <span>Bonsai Store App</span>
   <span class="spacer"></span>
   <button
+    *ngIf="authService.isLoggedIn"
     class="button"
     mat-icon-button
     class="icon"
@@ -40,6 +60,7 @@
     </mat-icon>
   </button>
   <button
+    *ngIf="authService.isLoggedIn"
     mat-icon-button
     title="Logout"
     class="icon"
