@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { User } from '../models/user';
+import { User } from '../../shared/models/user';
 import { LocalStorageService } from './storage.service';
 import { CartService } from './cart.service';
 import * as auth from 'firebase/auth';
