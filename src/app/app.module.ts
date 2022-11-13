@@ -10,7 +10,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
@@ -64,7 +63,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatBadgeModule,
     MatSnackBarModule,
   ],
-  providers: [AuthService, AuthGuard, { provide: FIREBASE_OPTIONS, useValue: environment.firebase }],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
