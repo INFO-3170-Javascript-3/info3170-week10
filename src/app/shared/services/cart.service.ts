@@ -1,10 +1,12 @@
 import { Inject, Injectable } from '@angular/core';
 import { Product } from '../models/product';
 import { ShoppingCart } from '../models/shopping-cart';
-import { Observable, Observer } from 'rxjs';
+import { map, Observable, Observer } from 'rxjs';
 import { ProductsService } from './products.service';
 import { CartItem } from '../models/cart-item';
 import { LocalStorageService } from './storage.service';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { async } from '@firebase/util';
 
 const CART_KEY = 'cart';
 
@@ -15,11 +17,12 @@ export class CartService {
   private _storage: Storage;
   private _subscriptionObservable: Observable<ShoppingCart>;
   private _subscribers: Array<Observer<ShoppingCart>> = new Array<Observer<ShoppingCart>>();
-  private _products: Product[];
+  private _products: Observable<Product[]>;
 
   constructor(
     private _productService: ProductsService,
-    private _storageService: LocalStorageService
+    private _storageService: LocalStorageService,
+    private _store: AngularFirestore,
   ) {
     this._storage = this._storageService.get();
     this._products = this._productService.getProducts();
@@ -65,9 +68,11 @@ export class CartService {
   private calculateCart(cart: ShoppingCart): void {
     cart.itemsTotal = cart.items
       .map(
-        (item) =>
-          item.quantity *
-          this._products.find((p) => p.id === item.productId)!.price
+        (item) => {
+          let quantity = item.quantity;
+          let price = (this._products.pipe(map(products=>products.find((p)=>p.id = item.productId)!.price)));
+          return quantity * Number(price);
+        }
       )
       .reduce((previous, current) => previous + current, 0);
     console.log('grossTotal', cart.itemsTotal);

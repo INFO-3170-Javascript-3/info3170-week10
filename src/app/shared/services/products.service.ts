@@ -1,24 +1,22 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { DbConnectionService } from './db-connection.service';
 import { Product } from '../models/product';
 import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductsService {
   
-  private _products:Observable<Product[]>;
+  products = this._store.collection('products').valueChanges({idField: 'id'}) as Observable<Product[]>;
 
   constructor(
-    private _dbConnection: DbConnectionService
-  ) {
-    this._products = this._dbConnection.products; 
-  }
+    private _store: AngularFirestore
+  ) { }
 
   @Output() event = new EventEmitter();
 
   getProducts() {
-    return this._products;
+    return this.products;
   }
 }

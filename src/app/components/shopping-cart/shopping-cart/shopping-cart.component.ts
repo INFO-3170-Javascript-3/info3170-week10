@@ -8,7 +8,7 @@ import { Product } from '../../../shared/models/product';
 import { ProductsService } from '../../../shared/services/products.service';
 import { CartService } from '../../../shared/services/cart.service';
 import { ShoppingCart } from '../../../shared/models/shopping-cart';
-import { Observable, Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +17,7 @@ import { Observable, Subscription } from 'rxjs';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit, OnDestroy {
-  public products: Product[] = [];
+  public products: Observable<Product[]> | null = null;
   public cart: Observable<ShoppingCart> | null = null;
   public itemCount: number = 0;
   public cartItems: any;
@@ -39,7 +39,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
     this.cart = this._cartService.get();
     this._cartSubscription = this.cart.subscribe((cart) => {
       this.cartItems = cart.items.map((item) => {
-        let product = this.products.find((p) => p.id == item.productId);
+        let product = this.products!.pipe(map(products=>products.find((p) => p.id == item.productId)));
         return { ...product, quantity: item.quantity };
       });
       this.itemCount = cart.items
