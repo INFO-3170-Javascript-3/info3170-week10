@@ -7,6 +7,7 @@ import { CartItem } from '../models/cart-item';
 import { LocalStorageService } from './storage.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { async } from '@firebase/util';
+import { User } from '../models/user';
 
 const CART_KEY = 'cart';
 
