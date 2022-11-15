@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../../shared/models/product';
 import { ProductsService } from '../../../shared/services/products.service';
 import { CartService } from '../../../shared/services/cart.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -15,11 +15,12 @@ export class ProductDetailsComponent implements OnInit {
   
   constructor(
     private _cartService: CartService,
+    private _productService: ProductsService,
     private _route: ActivatedRoute
   ) {}
 
-  product: Product | null = null;
-  @Input() products: Product[] = [];
+  product: Observable<Product> | null = null;
+  products: Observable<Product[]> | null = null;
 
   addToCart(product: Product) {
     this._cartService.addItem(product, 1);
@@ -27,10 +28,12 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     const routeParams = this._route.snapshot.paramMap;
-    const productIdFromRoute = Number(routeParams.get('productId'));
+    const productIdFromRoute = routeParams.get('productId');
 
-    this.product = this.products.find(
+    this.products = this._productService.getProducts();
+
+    this.product = this.products.pipe(map(products=>products.find(
       (product) => product.id === productIdFromRoute
-    )!;
+    )!));
   }
 }
