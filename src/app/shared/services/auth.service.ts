@@ -1,7 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
 import { User } from '../../shared/models/user';
 import { LocalStorageService } from './storage.service';
-import { CartService } from './cart.service';
 import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
@@ -21,7 +20,6 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     private _localStorage: LocalStorageService,
-    private _cartService: CartService 
   ) {
     this.storage = this._localStorage.get()
     /* Saving user data in localstorage when 
@@ -131,7 +129,6 @@ export class AuthService {
   SignOut() {
     return this.afAuth.signOut().then(() => {
       this.storage.removeItem('user');
-      this._cartService.empty();
       this.storage.removeItem('cart');
       this.router.navigate(['sign-in']);
     });
